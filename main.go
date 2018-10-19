@@ -52,7 +52,7 @@ type Flight struct {
 	ActualArrTime                *string `json:"actual_arrival_time"`
 	ArrDelayMin                  *int    `json:"arrival_delay_min"`
 	Canceled                     bool    `json:"canceled"`
-	CancelationReason            string  `json:"cancelation_reason"`
+	CancelationReason            *string `json:"cancelation_reason"`
 	Diverted                     bool    `json:"diverted"`
 	ScheduledElapsedMin          *int    `json:"scheduled_elapsed_min"`
 	ActualElapsedMin             *int    `json:"actual_elapsed_min"`
@@ -202,6 +202,7 @@ func main() {
 			os.Exit(1)
 		}
 
+		// Some airlines do not have an IATA code.
 		airlines[line[3]] = line[1]
 	}
 	log.Debug().
@@ -248,24 +249,24 @@ func main() {
 	flightFiles := []string{
 		//"sample.csv",
 		"2017-01.csv",
-		//"2017-02.csv",
-		//"2017-03.csv",
-		//"2017-04.csv",
-		//"2017-05.csv",
-		//"2017-06.csv",
-		//"2017-07.csv",
-		//"2017-08.csv",
-		//"2017-09.csv",
-		//"2017-10.csv",
-		//"2017-11.csv",
-		//"2017-12.csv",
-		//"2018-01.csv",
-		//"2018-02.csv",
-		//"2018-03.csv",
-		//"2018-04.csv",
-		//"2018-05.csv",
-		//"2018-06.csv",
-		//"2018-07.csv",
+		"2017-02.csv",
+		"2017-03.csv",
+		"2017-04.csv",
+		"2017-05.csv",
+		"2017-06.csv",
+		"2017-07.csv",
+		"2017-08.csv",
+		"2017-09.csv",
+		"2017-10.csv",
+		"2017-11.csv",
+		"2017-12.csv",
+		"2018-01.csv",
+		"2018-02.csv",
+		"2018-03.csv",
+		"2018-04.csv",
+		"2018-05.csv",
+		"2018-06.csv",
+		"2018-07.csv",
 	}
 
 	for _, flightFile := range flightFiles {
@@ -352,8 +353,7 @@ func main() {
 			} else {
 				log.Error().
 					Str("id", id).
-					Str("error", err.Error()).
-					Msg(fmt.Sprintf("Error getting origin airport %s", line[4]))
+					Msg("Error getting origin airport")
 				os.Exit(1)
 			}
 			if dest, ok := airports[line[5]]; ok {
@@ -374,6 +374,9 @@ func main() {
 				// 2017-01-31
 				// 1447 or 0600 (24 time, zero padded)
 				if line[11] != "" {
+					if line[11] == "2400" {
+						line[11] = "2359"
+					}
 					isoTime := fmt.Sprintf("%s %s:%s %s",
 						line[0], line[11][:2], line[11][2:],
 						time.Now().In(loc).Format("-0700 MST"))
@@ -409,8 +412,8 @@ func main() {
 				}
 			} else {
 				log.Error().
-					Str("error", err.Error()).
-					Msg(fmt.Sprintf("Error getting destination airport %s", line[5]))
+					Str("id", id).
+					Msg("Error getting destination airport")
 				os.Exit(1)
 			}
 
@@ -485,13 +488,17 @@ func main() {
 			flight.Canceled = c
 
 			if line[15] == "A" {
-				flight.CancelationReason = "Carrier"
+				s := "Carrier"
+				flight.CancelationReason = &s
 			} else if line[15] == "B" {
-				flight.CancelationReason = "Weather"
+				s := "Weather"
+				flight.CancelationReason = &s
 			} else if line[15] == "C" {
-				flight.CancelationReason = "National Air System"
+				s := "National Air System"
+				flight.CancelationReason = &s
 			} else if line[15] == "D" {
-				flight.CancelationReason = "Security"
+				s := "Security"
+				flight.CancelationReason = &s
 			}
 
 			diverted, err := strconv.ParseFloat(line[16], 64)
