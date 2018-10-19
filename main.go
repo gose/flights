@@ -31,7 +31,7 @@ type Airport struct {
 type Flight struct {
 	Airline                      string  `json:"airline"`
 	Carrier                      string  `json:"carrier"`
-	Tail                         string  `json:"tail"`
+	Tail                         *string `json:"tail"`
 	Number                       string  `json:"number"`
 	Origin                       string  `json:"origin"`
 	OriginGeo                    string  `json:"origin_geo"`
@@ -298,7 +298,10 @@ func main() {
 				flight.Airline = airline
 			}
 			flight.Carrier = line[1]
-			flight.Tail = line[2]
+			if line[2] != "" {
+				t := line[2]
+				flight.Tail = &t
+			}
 			flight.Number = line[3]
 			if origin, ok := airports[line[4]]; ok {
 				flight.Origin = origin.IATA
