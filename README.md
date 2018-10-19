@@ -67,6 +67,7 @@ Download the Airport data to get each Airports latitude and longitude:
 * Rename that file to `airports.csv`.
 * Open vim to search and replace `\"` with nothing using: `:%s/\\"//g`
 * Add the following lines to the top of that file:
+
 `0,"Laughlin/Bullhead International Airport","Chicago","United States","IFP","KIFP",35.156111,-114.559444,707,-7,"N","America/Phoenix","airport","OurAirports"`
 `0,"Stillwater Regional Airport","Stillwater","United States","SWO","KSWO",36.161111,-97.085556,1295,-6,"A","America/Chicago","airport","OurAirports"`
 `0,"Concord Regional Airport","Concord","United States","USA","KJQF",35.387778,-80.709167,705,-5,"A","America/New_York","airport","OurAirports"`
