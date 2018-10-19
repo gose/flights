@@ -1,0 +1,152 @@
+{
+  "settings": {
+    "number_of_shards": 1,
+    "number_of_replicas": 1
+  },
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "airline": {
+          "type": "text",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        },
+        "carrier": {
+          "type": "keyword"
+        },
+        "tail": {
+          "type": "keyword"
+        },
+        "code": {
+          "type": "keyword"
+        },
+        "origin": {
+          "type": "keyword"
+        },
+        "origin_geo": {
+          "type": "geo_point"
+        },
+        "origin_name": {
+          "type": "text",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        },
+        "origin_city": {
+          "type": "text",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        },
+        "origin_country": {
+          "type": "text",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        },
+        "destination": {
+          "type": "keyword"
+        },
+        "destination_geo": {
+          "type": "geo_point"
+        },
+        "destination_name": {
+          "type": "text",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        },
+        "destination_city": {
+          "type": "text",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        },
+        "destination_country": {
+          "type": "text",
+          "fields": {
+            "raw": {
+              "type": "keyword"
+            }
+          }
+        },
+        "scheduled_departure_time": {
+          "type": "date"
+        },
+        "actual_departure_time": {
+          "type": "date"
+        },
+        "dep_delay_min": {
+          "type": "integer"
+        },
+        "taxi_out_min": {
+          "type": "integer"
+        },
+        "taxi_in_min": {
+          "type": "integer"
+        },
+        "scheduled_arrival_time": {
+          "type": "date"
+        },
+        "actual_arrival_time": {
+          "type": "date"
+        },
+        "arrival_delay_min": {
+          "type": "integer"
+        },
+        "canceled": {
+          "type": "boolean"
+        },
+        "cancelation_reason": {
+          "type": "keyword"
+        },
+        "diverted": {
+          "type": "boolean"
+        },
+        "scheduled_elapsed_min": {
+          "type": "integer"
+        },
+        "actual_elapsed_min": {
+          "type": "integer"
+        },
+        "air_time_min": {
+          "type": "integer"
+        },
+        "flight_segments": {
+          "type": "integer"
+        },
+        "distance_between_airports_miles": {
+          "type": "integer"
+        },
+        "carrier_delay_min": {
+          "type": "integer"
+        },
+        "weather_delay_min": {
+          "type": "integer"
+        },
+        "national_air_system_delay_min": {
+          "type": "integer"
+        },
+        "security_delay_min": {
+          "type": "integer"
+        },
+        "late_aircraft_delay_min": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
