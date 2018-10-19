@@ -26,7 +26,7 @@ For example:
 
 Write down other questions you have so we can answer them with Elastic.
 
-### Data Source
+### Data Sources
 
 To get the data used for this exercise, select these data fields from the download form linked to above:
 
@@ -60,10 +60,16 @@ To get the data used for this exercise, select these data fields from the downlo
 
 Then select each month & year you want data for and click download.  Unzip the file and rename it to "YEAR-MONTH.csv" (e.g., `2017-02.csv`).  Repeat this until you have all the months you want data for.
 
-Then download the Airport data to get each Airports latitude and longitude:
+Download the Airport data to get each Airports latitude and longitude:
 
 [https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat](https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat)
 
 Rename that file to `airports.csv`.  Open vim to search and replace `\"` with nothing using: `:%s/\\"//g`
+
+Download the Airline data to get each Airline's full name:
+
+[https://raw.githubusercontent.com/jpatokal/openflights/master/data/airlines.dat](https://raw.githubusercontent.com/jpatokal/openflights/master/data/airlines.dat)
+
+Rename that file to `airlines.csv`.
 
 Put all these data files in the directory `~/data/flights`.

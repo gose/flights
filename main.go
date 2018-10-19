@@ -202,7 +202,7 @@ func main() {
 			os.Exit(1)
 		}
 
-		airlines[line[0]] = line[1]
+		airlines[line[3]] = line[1]
 	}
 	log.Debug().
 		Int("count", len(airlines)).
