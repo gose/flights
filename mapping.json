@@ -87,7 +87,7 @@
           "type": "date"
         },
         "actual_departure_time": {
-          "type": "date"
+          "type": "keyword"
         },
         "dep_delay_min": {
           "type": "integer"
@@ -99,10 +99,10 @@
           "type": "integer"
         },
         "scheduled_arrival_time": {
-          "type": "date"
+          "type": "keyword"
         },
         "actual_arrival_time": {
-          "type": "date"
+          "type": "keyword"
         },
         "arrival_delay_min": {
           "type": "integer"

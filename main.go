@@ -44,12 +44,12 @@ type Flight struct {
 	DestinationCity              string  `json:"destination_city"`
 	DestinationCountry           string  `json:"destination_country"`
 	ScheduledDepTime             string  `json:"scheduled_departure_time"`
-	ActualDepTime                *string `json:"actual_departure_time"`
+	ActualDepLocalTimeHourMin    *string `json:"actual_departure_local_time_hour_min"`
 	DepDelayMin                  *int    `json:"dep_delay_min"`
 	TaxiOutMin                   *int    `json:"taxi_out_min"`
 	TaxiInMin                    *int    `json:"taxi_in_min"`
-	ScheduledArrTime             *string `json:"scheduled_arrival_time"`
-	ActualArrTime                *string `json:"actual_arrival_time"`
+	ScheduledArrLocalTimeHourMin *string `json:"scheduled_arrival_local_time_hour_min"`
+	ActualArrLocalTimeHourMin    *string `json:"actual_arrival_local_time_hour_min"`
 	ArrDelayMin                  *int    `json:"arrival_delay_min"`
 	Canceled                     bool    `json:"canceled"`
 	CancelationReason            *string `json:"cancelation_reason"`
@@ -336,22 +336,8 @@ func main() {
 				}
 
 				if line[7] != "" {
-					if line[7] == "2400" {
-						line[7] = "2359"
-					}
-					isoTime := fmt.Sprintf("%s %s:%s %s",
-						line[0], line[7][:2], line[7][2:],
-						time.Now().In(loc).Format("-0700 MST"))
-					parsedTime, err := time.Parse("2006-01-02 15:04 -0700 MST", isoTime)
-					if err != nil {
-						log.Error().
-							Str("id", id).
-							Str("error", err.Error()).
-							Msg("Error parsing Actual Dep Time into Time")
-						os.Exit(1)
-					}
-					t := parsedTime.Format(time.RFC3339)
-					flight.ActualDepTime = &t
+					t := line[7]
+					flight.ActualDepLocalTimeHourMin = &t
 				}
 			} else {
 				log.Error().
@@ -365,53 +351,14 @@ func main() {
 				flight.DestinationName = dest.Name
 				flight.DestinationCity = dest.City
 				flight.DestinationCountry = dest.Country
-				loc, err := time.LoadLocation(dest.Timezone)
-				if err != nil {
-					log.Error().
-						Str("id", id).
-						Str("error", err.Error()).
-						Msg(fmt.Sprintf("Error getting timezone of %s", dest.Timezone))
-					os.Exit(1)
-				}
-				// Date Examples:
-				// 2017-01-31
-				// 1447 or 0600 (24 time, zero padded)
 				if line[11] != "" {
-					if line[11] == "2400" {
-						line[11] = "2359"
-					}
-					isoTime := fmt.Sprintf("%s %s:%s %s",
-						line[0], line[11][:2], line[11][2:],
-						time.Now().In(loc).Format("-0700 MST"))
-					parsedTime, err := time.Parse("2006-01-02 15:04 -0700 MST", isoTime)
-					if err != nil {
-						log.Error().
-							Str("id", id).
-							Str("error", err.Error()).
-							Msg("Error parsing Sched Arr Time into Time")
-						os.Exit(1)
-					}
-					t := parsedTime.Format(time.RFC3339)
-					flight.ScheduledArrTime = &t
+					t := line[11]
+					flight.ScheduledArrLocalTimeHourMin = &t
 				}
 
 				if line[12] != "" {
-					if line[12] == "2400" {
-						line[12] = "2359"
-					}
-					isoTime := fmt.Sprintf("%s %s:%s %s",
-						line[0], line[12][:2], line[12][2:],
-						time.Now().In(loc).Format("-0700 MST"))
-					parsedTime, err := time.Parse("2006-01-02 15:04 -0700 MST", isoTime)
-					if err != nil {
-						log.Error().
-							Str("id", id).
-							Str("error", err.Error()).
-							Msg("Error parsing Actual Arr Time into Time")
-						os.Exit(1)
-					}
-					t := parsedTime.Format(time.RFC3339)
-					flight.ActualArrTime = &t
+					t := line[12]
+					flight.ActualArrLocalTimeHourMin = &t
 				}
 			} else {
 				log.Error().
