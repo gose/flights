@@ -26,6 +26,18 @@ For example:
 
 Write down other questions you have so we can answer them with Elastic.
 
+### Ingest
+
+Getting this data into Elastic can be accomplished using:
+
+* Logstash
+* Beats
+* Programming Language
+
+At its core, data is ingested via the [Document APIs](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs.html).  These are a set of RESTful APIs that all of the methods above use to ingest data.  It's recommended you use whatever tool (or language) you are most comfortable with.  Logstash & Beats provide a configuration-driven approach to ingesting data, while a programming langauge will give you more flexibility at the cost of verbosity.  There are tradeoffs to each approach but the choice is yours.
+
+Though Go is not part of the official [Elasticsearch Clients](https://www.elastic.co/guide/en/elasticsearch/client/index.html) supported by Elastic, there is a popular [Elastic Go library](https://github.com/olivere/elastic) that wraps the REST APIs.  We will be using that library to ingest data.
+
 ### Data Sources
 
 To get the data used for this exercise, select these data fields from the download form linked to above:
@@ -80,3 +92,4 @@ Download the Airline data to get each Airline's full name:
 Rename that file to `airlines.csv`.
 
 Put all these data files in the directory `~/data/flights`.
+
