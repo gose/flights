@@ -7,12 +7,7 @@
     "_doc": {
       "properties": {
         "airline": {
-          "type": "text",
-          "fields": {
-            "raw": {
-              "type": "keyword"
-            }
-          }
+          "type": "keyword"
         },
         "carrier": {
           "type": "keyword"
@@ -20,7 +15,7 @@
         "tail": {
           "type": "keyword"
         },
-        "code": {
+        "number": {
           "type": "keyword"
         },
         "origin": {
@@ -30,28 +25,13 @@
           "type": "geo_point"
         },
         "origin_name": {
-          "type": "text",
-          "fields": {
-            "raw": {
-              "type": "keyword"
-            }
-          }
+          "type": "keyword"
         },
         "origin_city": {
-          "type": "text",
-          "fields": {
-            "raw": {
-              "type": "keyword"
-            }
-          }
+          "type": "keyword"
         },
         "origin_country": {
-          "type": "text",
-          "fields": {
-            "raw": {
-              "type": "keyword"
-            }
-          }
+          "type": "keyword"
         },
         "destination": {
           "type": "keyword"
@@ -60,33 +40,18 @@
           "type": "geo_point"
         },
         "destination_name": {
-          "type": "text",
-          "fields": {
-            "raw": {
-              "type": "keyword"
-            }
-          }
+          "type": "keyword"
         },
         "destination_city": {
-          "type": "text",
-          "fields": {
-            "raw": {
-              "type": "keyword"
-            }
-          }
+          "type": "keyword"
         },
         "destination_country": {
-          "type": "text",
-          "fields": {
-            "raw": {
-              "type": "keyword"
-            }
-          }
+          "type": "keyword"
         },
         "scheduled_departure_time": {
           "type": "date"
         },
-        "actual_departure_time": {
+        "actual_departure_local_time_hour_min": {
           "type": "keyword"
         },
         "dep_delay_min": {
@@ -98,10 +63,10 @@
         "taxi_in_min": {
           "type": "integer"
         },
-        "scheduled_arrival_time": {
+        "scheduled_arrival_local_time_hour_min": {
           "type": "keyword"
         },
-        "actual_arrival_time": {
+        "actual_arrival_local_time_hour_min": {
           "type": "keyword"
         },
         "arrival_delay_min": {
