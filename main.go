@@ -28,18 +28,23 @@ type Airport struct {
 	Timezone  string `json:"-"`
 }
 
+type Geo struct {
+	Lat string `json:"lat"`
+	Lon string `json:"lon"`
+}
+
 type Flight struct {
 	Airline                      string  `json:"airline"`
 	Carrier                      string  `json:"carrier"`
 	Tail                         *string `json:"tail"`
 	Number                       string  `json:"number"`
 	Origin                       string  `json:"origin"`
-	OriginGeo                    string  `json:"origin_geo"`
+	OriginGeo                    Geo     `json:"origin_geo"`
 	OriginName                   string  `json:"origin_name"`
 	OriginCity                   string  `json:"origin_city"`
 	OriginCountry                string  `json:"origin_country"`
 	Destination                  string  `json:"destination"`
-	DestinationGeo               string  `json:"destination_geo"`
+	DestinationGeo               Geo     `json:"destination_geo"`
 	DestinationName              string  `json:"destination_name"`
 	DestinationCity              string  `json:"destination_city"`
 	DestinationCountry           string  `json:"destination_country"`
@@ -305,7 +310,11 @@ func main() {
 			flight.Number = line[3]
 			if origin, ok := airports[line[4]]; ok {
 				flight.Origin = origin.IATA
-				flight.OriginGeo = fmt.Sprintf("%s,%s", origin.Latitude, origin.Longitude)
+				geo := Geo{
+					Lat: origin.Latitude,
+					Lon: origin.Longitude,
+				}
+				flight.OriginGeo = geo
 				flight.OriginName = origin.Name
 				flight.OriginCity = origin.City
 				flight.OriginCountry = origin.Country
@@ -347,7 +356,11 @@ func main() {
 			}
 			if dest, ok := airports[line[5]]; ok {
 				flight.Destination = dest.IATA
-				flight.DestinationGeo = fmt.Sprintf("%s,%s", dest.Latitude, dest.Longitude)
+				geo := Geo{
+					Lat: dest.Latitude,
+					Lon: dest.Longitude,
+				}
+				flight.DestinationGeo = geo
 				flight.DestinationName = dest.Name
 				flight.DestinationCity = dest.City
 				flight.DestinationCountry = dest.Country
