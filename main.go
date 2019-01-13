@@ -312,6 +312,9 @@ func main() {
 		"2018-05.csv",
 		"2018-06.csv",
 		"2018-07.csv",
+		"2018-08.csv",
+		"2018-09.csv",
+		"2018-10.csv",
 	}
 
 	for _, flightFile := range flightFiles {
