@@ -3,12 +3,14 @@ package main
 import (
 	"bufio"
 	"context"
+	"crypto/tls"
 	"encoding/csv"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"strconv"
 	"time"
@@ -93,6 +95,8 @@ func main() {
 	flag.Parse()
 
 	ctx := context.Background()
+
+	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 
 	// Elastic Client
 	elasticEndpoint := os.Getenv("ELASTIC_ENDPOINT")
@@ -253,6 +257,7 @@ func main() {
 	// Trips
 	flightFiles := []string{
 		//"sample.csv",
+
 		"2014-01.csv",
 		"2014-02.csv",
 		"2014-03.csv",
@@ -315,6 +320,26 @@ func main() {
 		"2018-08.csv",
 		"2018-09.csv",
 		"2018-10.csv",
+		"2018-11.csv",
+		"2018-12.csv",
+		"2019-01.csv",
+		"2019-02.csv",
+		"2019-03.csv",
+		"2019-04.csv",
+		"2019-05.csv",
+		"2019-06.csv",
+		"2019-07.csv",
+		"2019-08.csv",
+		"2019-09.csv",
+		"2019-10.csv",
+		"2019-11.csv",
+		"2019-12.csv",
+
+		"2020-01.csv",
+		"2020-02.csv",
+		"2020-03.csv",
+		"2020-04.csv",
+		"2020-05.csv",
 	}
 
 	for _, flightFile := range flightFiles {
